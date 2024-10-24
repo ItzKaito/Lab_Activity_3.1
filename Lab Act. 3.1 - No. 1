@@ -1,0 +1,21 @@
+public class Calculator {
+
+ public static void main(String[] args) {
+        double[] numbers = new double[10];
+        int i = 0;
+        double sum = 0;
+        String input = JOptionPane.showInputDialog("Special Calculator\nEnter 10 Inputs:");
+        int array = Integer.parseInt(input);
+        
+        while (i < 10) {
+            numbers[i] = array;
+            sum += numbers[i];
+            i++;
+        }
+
+        System.out.println("Sum: " + sum);
+        System.out.println("Average: " + sum / 10);
+
+    }
+
+}
