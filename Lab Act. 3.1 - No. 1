@@ -1,20 +1,134 @@
-public class Calculator {
+/*
+Frenz Dominic F. Cartajena 
+Electronics and Communications Engineering - Year 1
+*/
+package array.implementation;
 
- public static void main(String[] args) {
-        double[] numbers = new double[10];
-        int i = 0;
-        double sum = 0;
-        String input = JOptionPane.showInputDialog("Special Calculator\nEnter 10 Inputs:");
-        int array = Integer.parseInt(input);
-        
-        while (i < 10) {
-            numbers[i] = array;
-            sum += numbers[i];
-            i++;
+import javax.swing.JOptionPane;
+
+public class ArrayImplementation {
+
+    public static void main(String[] args) {
+        //Loop starts
+        boolean loop = true;
+        while (loop) {
+            //User chooses which Array to use
+            String choose = JOptionPane.showInputDialog("Choose a Set"
+                    + "\n Code \t Packages"
+                    + "\n 1 \t Sum and Average of an Array and Frequency Counter"
+                    + "\n 2 \t Maximum and Minimum"
+                    + "\n 3 \t Reverse of an Array");
+
+            //Code blocks for each Array
+            switch (choose) {
+                case "1":
+                    sumAverageFrequencyCounter();
+                    break;
+
+                case "2":
+                    findMaximumAndMinimum();
+                    break;
+
+                case "3":
+                    reverseArray();
+                    break;
+                
+                default:
+                    //User gets an Error response
+                    JOptionPane.showMessageDialog(null, "Invalid.  Please enter a valid Code.");
+                    break;
+
+            }
+
+            //User is asked to do another Operation
+            int res = JOptionPane.showConfirmDialog(null, "Do you want to perform another operation?", "Continue", JOptionPane.YES_NO_OPTION);
+            //Closes the Windows Panel if User chooses No
+            if (res == JOptionPane.NO_OPTION) {
+                loop = false;
+            }
+        }
+    }
+
+    private static void sumAverageFrequencyCounter() {
+        int n = 10;
+        double[] nums = new double[n];
+
+        for (int i = 0; i < n; i++) {
+            String dec = JOptionPane.showInputDialog("Enter num " + (i + 1) + ":");
+            nums[i] = Double.parseDouble(dec);
         }
 
-        System.out.println("Sum: " + sum);
-        System.out.println("Average: " + sum / 10);
+        //Computation of the Sum and Average
+        double sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+        }
 
+        double average = sum / n;
+        JOptionPane.showMessageDialog(null, "The Sum of the Array: " + sum);
+        JOptionPane.showMessageDialog(null, "The Average of the Array: " + average);
+
+        //Computation of the Frequency Counter
+        java.util.HashMap<Double, Integer> frequencyMap = new java.util.HashMap<>();
+        for (double num : nums) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+        StringBuilder frequencyCount = new StringBuilder("The Frequency Count : ");
+        for (java.util.Map.Entry<Double, Integer> entry : frequencyMap.entrySet()) {
+            frequencyCount.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+        }
+        JOptionPane.showMessageDialog(null, frequencyCount.toString());
     }
+
+    //Computation of MinAndMax
+    private static void findMaximumAndMinimum() {
+        int n = 10;
+        double[] nums = new double[n];
+
+        for (int i = 0; i < n; i++) {
+            String idk = JOptionPane.showInputDialog("Enter num " + (i + 1) + ":");
+            nums[i] = Double.parseDouble(idk);
+        }
+
+        double max = nums[0];
+        double min = nums[0];
+
+        for (int i = 1; i < n; i++) {
+            if (nums[i] > max) {
+                max = nums[i];
+            }
+            if (nums[i] < min) {
+                min = nums[i];
+            }
+        }
+
+        JOptionPane.showInputDialog(null, "The Maximum Element: " + max);
+        JOptionPane.showInputDialog(null, "The Minimum Element: " + min);
+    }
+    
+    //Computation of Reverse Array
+    private static void reverseArray() {
+        int n = 10;
+        double[] nums = new double[n];
+
+        for (int i = 0; i < n; i++) {
+            String idk = JOptionPane.showInputDialog("Enter num " + (i + 1) + ":");
+            nums[i] = Double.parseDouble(idk);
+        }
+
+        for (int i = 0; i < n / 2; i++) {
+            double dot = nums[i];
+            nums[i] = nums[n - 1 - i];
+            nums[n - 1 - i] = dot;
+        }
+
+        StringBuilder reversedArray = new StringBuilder("The Reversed Array: ");
+        for (double num : nums) {
+            reversedArray.append(num).append(" ");
+        }
+
+        JOptionPane.showMessageDialog(null, reversedArray.toString());
+    }
+
 }
